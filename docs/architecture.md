@@ -1,3 +1,3 @@
 # Architecture 
 
-#Logic Design
+Policy   ->  Bucket -> Request Accept or Reject
