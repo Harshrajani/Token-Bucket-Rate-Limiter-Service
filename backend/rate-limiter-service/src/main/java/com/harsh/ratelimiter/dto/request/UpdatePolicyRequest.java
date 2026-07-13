@@ -2,9 +2,6 @@ package com.harsh.ratelimiter.dto.request;
 
 import com.harsh.ratelimiter.constants.enums.RateLimitingAlgorithm;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,10 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CreatePolicyRequest {
-
-    @NotBlank
-    private String clientId;
+public class UpdatePolicyRequest {
 
     @NotNull
     private RateLimitingAlgorithm algorithm;
