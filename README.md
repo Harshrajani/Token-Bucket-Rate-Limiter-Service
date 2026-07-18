@@ -75,7 +75,7 @@ Configure and manage rate limits.
 ### V2
 
 * gRPC interface
-* Improved performance
+* Improved performance7
 * Internal service-to-service communication
 
 ### V3
@@ -119,7 +119,7 @@ Backend:
 
 Storage:
 
-* TBD
+* Postgres Sql
 
 Testing:
 
