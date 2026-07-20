@@ -442,7 +442,7 @@ Denied
 ## Next Milestones
 
 - DTO Design(Completed)
-- Exception Handling
+- Exception Handling(Completed)
 - Admin APIs
 - Token Bucket Algorithm
 - Rate Limit Check API
