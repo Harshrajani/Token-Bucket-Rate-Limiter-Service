@@ -443,7 +443,7 @@ Denied
 
 - DTO Design(Completed)
 - Exception Handling(Completed)
-- Admin APIs
+- Admin APIs (Completed)
 - Token Bucket Algorithm
 - Rate Limit Check API
 - Concurrency Handling
