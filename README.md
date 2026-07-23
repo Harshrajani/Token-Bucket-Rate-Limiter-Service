@@ -1,4 +1,4 @@
-# README.md
+8# README.md
 
 # Token Bucket Rate Limiter Service
 
@@ -123,7 +123,7 @@ Storage:
 
 Testing:
 
-* TBD
+* JUnit Testing
 
 Deployment:
 
