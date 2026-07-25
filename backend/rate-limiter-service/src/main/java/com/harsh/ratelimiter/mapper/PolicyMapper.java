@@ -3,6 +3,7 @@ package com.harsh.ratelimiter.mapper;
 import org.springframework.stereotype.Component;
 
 import com.harsh.ratelimiter.dto.request.CreatePolicyRequest;
+import com.harsh.ratelimiter.dto.request.UpdatePolicyRequest;
 import com.harsh.ratelimiter.dto.response.PolicyResponse;
 import com.harsh.ratelimiter.entity.RateLimitPolicy;
 
@@ -32,5 +33,13 @@ public class PolicyMapper {
                 entity.getCreatedAt(),
                 entity.getUpdatedAt()
         );
+    }
+
+    public void updateEntity(UpdatePolicyRequest request, RateLimitPolicy entity) {
+
+        entity.setAlgorithm(request.getAlgorithm());
+        entity.setCapacity(request.getCapacity());
+        entity.setRefillRate(request.getRefillRate());
+
     }
 }
