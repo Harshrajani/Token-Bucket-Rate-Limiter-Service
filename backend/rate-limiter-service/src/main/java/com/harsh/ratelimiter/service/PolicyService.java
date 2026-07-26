@@ -22,9 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class PolicyService {
 
     private final RateLimitPolicyRepository rateLimitPolicyRepository;
-
     private final BucketRepository bucketRepository;
-
     private final PolicyMapper policyMapper;
 
     @Transactional
@@ -48,6 +46,16 @@ public class PolicyService {
         return policyMapper.toResponse(savedPolicy);
     }
 
+    @Transactional(readOnly = true)
+    public PolicyResponse getPolicy(String clientId) {
+
+        RateLimitPolicy policy = rateLimitPolicyRepository
+                .findByClientId(clientId)
+                .orElseThrow(() -> new PolicyNotFoundException(clientId));
+
+        return policyMapper.toResponse(policy);
+    }
+
     @Transactional
     public PolicyResponse updatePolicy(
             String clientId,
@@ -69,4 +77,5 @@ public class PolicyService {
 
         return policyMapper.toResponse(policy);
     }
+
 }

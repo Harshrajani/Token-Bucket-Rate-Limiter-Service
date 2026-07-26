@@ -7,11 +7,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.harsh.ratelimiter.dto.request.CreatePolicyRequest;
+import com.harsh.ratelimiter.dto.request.UpdatePolicyRequest;
 import com.harsh.ratelimiter.dto.response.PolicyResponse;
 import com.harsh.ratelimiter.service.PolicyService;
 
@@ -45,4 +47,16 @@ public class PolicyController {
 
         return ResponseEntity.ok(response);
     }
+
+    @PutMapping("/{clientId}")
+    public ResponseEntity<PolicyResponse> updatePolicy(
+            @PathVariable String clientId,
+            @Valid @RequestBody UpdatePolicyRequest request) {
+
+        PolicyResponse response =
+                policyService.updatePolicy(clientId, request);
+
+        return ResponseEntity.ok(response);
+    }
+
 }
