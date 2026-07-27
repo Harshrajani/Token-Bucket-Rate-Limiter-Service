@@ -78,4 +78,16 @@ public class PolicyService {
         return policyMapper.toResponse(policy);
     }
 
+    @Transactional
+public void deletePolicy(String clientId) {
+
+    RateLimitPolicy policy = rateLimitPolicyRepository
+            .findByClientId(clientId)
+            .orElseThrow(() -> new PolicyNotFoundException(clientId));
+
+    bucketRepository.deleteByPolicyId(policy.getId());
+
+    rateLimitPolicyRepository.delete(policy);
+}
+
 }

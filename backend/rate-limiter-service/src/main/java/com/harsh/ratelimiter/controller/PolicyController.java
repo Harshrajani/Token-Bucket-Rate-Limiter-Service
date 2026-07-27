@@ -4,6 +4,7 @@ import java.net.URI;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,5 +59,14 @@ public class PolicyController {
 
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/{clientId}")
+public ResponseEntity<Void> deletePolicy(
+        @PathVariable String clientId) {
+
+    policyService.deletePolicy(clientId);
+
+    return ResponseEntity.noContent().build();
+}
 
 }
