@@ -444,8 +444,8 @@ Denied
 - DTO Design(Completed)
 - Exception Handling(Completed)
 - Admin APIs (Completed)
-- Token Bucket Algorithm
-- Rate Limit Check API
+- Token Bucket Algorithm(In Progress)
+- Rate Limit Check API (In Progress)
 - Concurrency Handling
 - Sliding Window Strategy
 - Integration Testing
