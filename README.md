@@ -1,136 +1,227 @@
-8# README.md
-
 # Token Bucket Rate Limiter Service
 
-## Overview
+A standalone, configurable rate-limiting service built with Java and Spring Boot.
 
-Token Bucket Rate Limiter Service is a backend system responsible for controlling how frequently a client can send requests to protected services.
+The service provides a centralized API for determining whether requests from individual clients should be allowed or denied based on configurable rate-limiting policies.
 
-The service exposes an API that receives a client identifier and returns whether the request should be allowed or denied according to configured rate-limiting rules.
-
-This project is built to learn backend engineering fundamentals through real-world concerns such as API design, concurrency, persistence, configuration management, observability, and system evolution.
+The project focuses on building a production-oriented backend service with persistent state, configurable policies, concurrency safety, and an extensible architecture.
 
 ---
 
-## Problem Statement
+## ✨ Features
 
-Backend systems can become overloaded when clients send requests too quickly or in bursts.
-
-This service protects backend APIs from excessive or abusive traffic by enforcing configurable request limits while maintaining fairness and availability.
-
----
-
-## Why This Project
-
-Many applications use libraries for rate limiting, but building rate limiting as a standalone service introduces important backend concepts:
-
-* API contract design
-* Shared mutable state
-* Concurrency control
-* Time-based systems
-* Persistence
-* Horizontal scalability
-* System evolution
+- Per-client rate-limiting policies
+- Token Bucket rate-limiting algorithm
+- Configurable bucket capacity and refill rate
+- Persistent rate-limit state
+- Policy management APIs
+- REST API
+- Request validation
+- Global exception handling
+- Transactional operations
+- Concurrency-safe request processing
+- Extensible algorithm architecture
+- Automated testing
+- Load testing
 
 ---
 
-## Users
+## 🏗️ Tech Stack
 
-### API Consumers
-
-Applications or users sending requests.
-
-Examples:
-
-* Mobile apps
-* Frontend applications
-* Partner APIs
-
-### Protected Services
-
-Services that integrate with the rate limiter.
-
-Examples:
-
-* Auth Service
-* Payment Service
-* Order Service
-
-### Administrators
-
-Configure and manage rate limits.
+| Category | Technology |
+|---|---|
+| Language | Java 17 |
+| Framework | Spring Boot |
+| Web | Spring Web MVC |
+| Persistence | Spring Data JPA / Hibernate |
+| Database | PostgreSQL |
+| Build Tool | Maven |
+| Containerization | Docker / Docker Compose |
+| Testing | JUnit / Spring Boot Test |
+| Database Management | pgAdmin |
 
 ---
 
-## Version Roadmap
+## 📌 API Overview
 
-### V1
+### Policy Management
 
-* REST API
-* Token Bucket algorithm
-* Per-client configuration
-* Persistent bucket state
-* Concurrency-safe updates
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/v1/admin/policies` | Create a rate-limit policy |
+| `GET` | `/api/v1/admin/policies/{clientId}` | Get a policy |
+| `PUT` | `/api/v1/admin/policies/{clientId}` | Update a policy |
+| `DELETE` | `/api/v1/admin/policies/{clientId}` | Delete a policy |
 
-### V2
+### Rate Limiting
 
-* gRPC interface
-* Improved performance7
-* Internal service-to-service communication
+| Method | Endpoint | Description |
+|---|---|---|
+| `POST` | `/api/v1/rate-limit/check` | Check whether a request should be allowed |
 
-### V3
+### Example Request
 
-* Distributed deployment
-* Shared state
+    {
+      "clientId": "payment-service"
+    }
 
-### V4
+### Example Response
 
-* Dashboard and observability
-
----
-
-## Success Criteria
-
-* Correct ALLOW / DENY decisions
-* Concurrent requests remain safe
-* Limits survive restart
-* Low response latency
-* Configurations apply correctly
+    {
+      "status": "ALLOWED",
+      "limit": 20,
+      "remaining": 19
+    }
 
 ---
 
-## Non Goals (V1)
+## 🚀 Getting Started
 
-* Authentication system
-* Billing
-* Analytics platform
-* Geo-based limits
-* Distributed deployment
-* Dashboard UI
+### Prerequisites
 
----
+- Java 17+
+- Maven
+- Docker
+- Docker Compose
 
-## Tech Stack (Planned)
+### 1. Clone the Repository
 
-Backend:
+    git clone <repository-url>
+    cd rate-limiter-service
 
-* Java
-* Spring Boot
+### 2. Start PostgreSQL
 
-Storage:
+    docker compose up -d
 
-* Postgres Sql
+### 3. Run the Application
 
-Testing:
+    ./mvnw spring-boot:run
 
-* JUnit Testing
+The service will be available at:
 
-Deployment:
-
-* TBD
+    http://localhost:8080
 
 ---
 
-## Project Status
+## 🗄️ Database
 
-Planning Phase
+The application uses PostgreSQL for persistent storage.
+
+Docker Compose provides:
+
+- PostgreSQL
+- pgAdmin
+
+### Default Development Database
+
+    Database: rate_limiter_db
+    Host: localhost
+    Port: 5432
+
+### pgAdmin
+
+    http://localhost:5050
+
+> Development credentials are configured in `compose.yml`. Production deployments should use environment variables or a secrets manager.
+
+---
+
+## 📖 Documentation
+
+Detailed project documentation is maintained separately:
+
+- [ARCHITECTURE.md](ARCHITECTURE.md) — System architecture and component responsibilities
+- [REQUIREMENTS.md](REQUIREMENTS.md) — Functional and non-functional requirements
+- [API-CONTRACT.md](API-CONTRACT.md) — API specifications and contracts
+- [DECISIONS.md](DECISIONS.md) — Architectural decisions and their rationale
+
+---
+
+## 📊 Project Status
+
+### Completed
+
+- [x] Project setup
+- [x] PostgreSQL integration
+- [x] Docker Compose setup
+- [x] Domain entities
+- [x] Repository layer
+- [x] DTOs and mappers
+- [x] Exception handling
+- [x] Policy management APIs
+
+### In Progress
+
+- [ ] Token Bucket implementation
+- [ ] Rate-limit check API
+- [ ] Concurrency handling
+- [ ] Integration testing
+- [ ] Load testing
+
+---
+
+## 🛣️ Roadmap
+
+### V1 — Core Rate Limiter
+
+- Token Bucket
+- Persistent bucket state
+- Per-client configuration
+- Concurrency-safe processing
+- REST API
+- Automated testing
+- Load testing
+
+### V2 — Extensibility & Performance
+
+- Sliding Window
+- Additional rate-limiting strategies
+- gRPC
+- Performance improvements
+
+### V3 — Distributed Rate Limiting
+
+- Redis
+- Distributed state
+- Horizontal scaling
+- Distributed concurrency control
+
+### V4 — Observability
+
+- Metrics
+- Prometheus
+- Grafana
+- Request and rejection monitoring
+
+---
+
+## 🎯 Project Goals
+
+This project is being developed to explore practical backend engineering concepts through a real-world distributed-system problem.
+
+Key areas include:
+
+- API design
+- Persistence
+- Concurrency
+- Time-based algorithms
+- Transaction management
+- Extensible architecture
+- Performance testing
+- Distributed systems
+
+---
+
+## 👨‍💻 Development Approach
+
+The project is intentionally developed incrementally.
+
+Each feature is introduced with a specific engineering requirement rather than adding infrastructure prematurely.
+
+Architectural decisions and their reasoning are documented separately in `DECISIONS.md`.
+
+---
+
+## 📄 License
+
+This project is currently intended for educational and portfolio purposes.
